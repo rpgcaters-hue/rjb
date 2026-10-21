@@ -7,10 +7,17 @@ const fs = require('fs');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
-// Initialize Supabase
-const supabaseUrl = process.env.SUPABASE_URL || 'YOUR_SUPABASE_URL';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || 'YOUR_SUPABASE_KEY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Initialize Supabase safely (avoids crash if environment variables are not yet configured)
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+let supabase = null;
+if (supabaseUrl && supabaseKey && supabaseUrl.startsWith('http')) {
+    try {
+        supabase = createClient(supabaseUrl, supabaseKey);
+    } catch (err) {
+        console.warn('Supabase initialization failed:', err.message);
+    }
+}
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -30,8 +37,12 @@ app.use(session({
 
 // Setup Multer for Image Uploads (Stored locally in public/uploads)
 const uploadsDir = path.join(__dirname, 'public', 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+try {
+    if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+} catch (e) {
+    // In serverless environments (e.g. Vercel), local filesystem is read-only
 }
 
 const storage = multer.diskStorage({
@@ -156,7 +167,7 @@ app.get('/download-consolidated-menu', (req, res) => {
 });
 
 app.get('/download-menu', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'RPG-Catering-Services-Menu.pdf');
+    const filePath = path.join(__dirname, 'public', 'marriage-food.pdf');
     res.download(filePath, 'RPG-Catering-Services-Official-Menu.pdf');
 });
 

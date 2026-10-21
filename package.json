@@ -2,7 +2,10 @@
   "name": "rkg-wedding-planner",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,7 +31,6 @@
     "express-session": "^1.19.0",
     "multer": "^2.2.0",
     "pdf-parse": "^2.4.5",
-    "sqlite3": "^6.0.1",
     "xlsx": "^0.18.5"
   }
 }

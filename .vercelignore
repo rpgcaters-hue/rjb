@@ -1,0 +1,33 @@
+# =============================================================
+# .vercelignore — Excludes files from Vercel deployment bundle
+# Local files are preserved; only the deployed bundle is reduced.
+# Last updated: Phase 1 deployment fix (2026-10-21)
+# =============================================================
+
+# --- Unused video files (not referenced in any EJS template or server route) ---
+# These files exist locally for potential future use but are not served by the app.
+public/boss.mp4
+public/bossevent.mp4
+
+# --- Duplicate large asset (identical 60.8 MB duplicate of public/marriage-food.pdf) ---
+# Deduplicated in server.js download routes; excluded from deploy bundle to save 60.8 MB.
+public/RPG-Catering-Services-Menu.pdf
+
+# --- Local development scripts (not part of the web app) ---
+# db.js    — SQLite setup (dead code, not imported by server.js)
+# update_tagline.js — local dev utility, already in .gitignore
+db.js
+
+# --- Scratch/dev files not needed in production ---
+scratch_dinner.txt
+scratch_marriage.txt
+scratch_master.txt
+scratch_wb1_Consolidated_Menu.json
+scratch_wb2_Full_Menu_Master.json
+inspect-all.js
+build-menu.js
+update_tagline.js
+database.sqlite
+
+# --- Local scratch directories ---
+scratch_marriage_pages/
