@@ -35,27 +35,44 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Setup Multer for Image Uploads (Stored locally in public/uploads)
-const uploadsDir = path.join(__dirname, 'public', 'uploads');
-try {
-    if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-} catch (e) {
-    // In serverless environments (e.g. Vercel), local filesystem is read-only
-}
+// Environment detection
+const isServerless = process.env.VERCEL === '1' || 
+                     Boolean(process.env.VERCEL_ENV) || 
+                     Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME) || 
+                     process.env.NODE_ENV === 'production';
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadsDir);
-    },
-    filename: (req, file, cb) => {
-        const fileExt = path.extname(file.originalname);
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`;
-        cb(null, fileName);
+// Setup Multer for Image Uploads
+// In serverless environments (e.g. Vercel), the local filesystem is read-only and ephemeral.
+// Directory creation is completely bypassed at startup to prevent startup crashes.
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+let upload;
+
+if (!isServerless) {
+    // Local development: initialize disk storage and ensure uploads directory exists
+    try {
+        if (!fs.existsSync(uploadsDir)) {
+            fs.mkdirSync(uploadsDir, { recursive: true });
+        }
+    } catch (e) {
+        console.warn('Notice: Local uploads folder creation failed:', e.message);
     }
-});
-const upload = multer({ storage: storage });
+
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, uploadsDir);
+        },
+        filename: (req, file, cb) => {
+            const fileExt = path.extname(file.originalname);
+            const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`;
+            cb(null, fileName);
+        }
+    });
+    upload = multer({ storage: storage });
+} else {
+    // Serverless (Vercel): use memory storage to prevent any disk writes or startup mkdir crashes.
+    // Cloud persistent uploads (Supabase Storage) will be handled in Phase 3.
+    upload = multer({ storage: multer.memoryStorage() });
+}
 
 // Local Gallery Data Store (Fast & reliable)
 const GALLERY_FILE = path.join(__dirname, 'public', 'gallery-data.json');
@@ -205,6 +222,11 @@ app.get('/admin', requireAuth, (req, res) => {
 app.post('/admin/gallery', requireAuth, upload.array('images', 20), (req, res) => {
     if (!req.files || req.files.length === 0) return res.redirect('/admin');
     
+    if (isServerless) {
+        console.warn('Notice: Gallery upload attempted on serverless. Supabase Storage migration scheduled for Phase 3.');
+        return res.redirect('/admin?warning=storage_migration_pending');
+    }
+    
     const category = req.body.category || 'Uncategorized';
     const gallery = getGallery();
     
@@ -225,6 +247,11 @@ app.post('/admin/gallery', requireAuth, upload.array('images', 20), (req, res) =
 
 // Admin: Delete Gallery Image
 app.post('/admin/gallery/delete/:id', requireAuth, (req, res) => {
+    if (isServerless) {
+        console.warn('Notice: Gallery delete attempted on serverless. Supabase Storage migration scheduled for Phase 3.');
+        return res.redirect('/admin?warning=storage_migration_pending');
+    }
+
     const gallery = getGallery();
     const itemIndex = gallery.findIndex(item => String(item.id) === String(req.params.id));
     
