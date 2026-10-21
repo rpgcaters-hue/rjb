@@ -17,9 +17,9 @@ const db = new sqlite3.Database(path.join(__dirname, 'database.sqlite'), (err) =
                 db.get("SELECT COUNT(*) as count FROM SiteContent", (err, row) => {
                     if (row && row.count === 0) {
                         const defaultContent = [
-                            ['hero_tagline', "RPG Catering is Cuddalore's trusted event planner,<br>delivering premium wedding catering services —<br>crafting unforgettable memories since 2005."],
-                            ['about_title', "RPG CATERING"],
-                            ['about_text', "<p>At <strong>RPG Catering</strong>, we believe every celebration deserves extraordinary food and seamless hospitality. We create unforgettable dining experiences tailored to your vision.</p><p>Our team delivers freshly prepared cuisine and flawless event execution. From intimate family gatherings to grand weddings, we ensure your guests enjoy every moment.</p><p class=\"about-studio__signature\">Your Celebration. Our Passion.</p>"]
+                            ['hero_tagline', "<span class=\"tagline-line\">RPG Catering is Cuddalore's trusted event planner,</span><span class=\"tagline-line\">delivering premium wedding catering &amp; event services —</span><span class=\"tagline-line\">crafting unforgettable memories since 2006.</span>"],
+                            ['about_title', "RPG CATERING AND EVENT MANAGEMENT"],
+                            ['about_text', "<p>At <strong>RPG Catering and Event Management</strong> (RPG சமையல் கேட்டரிங் சர்வீஸ்) in Vannarapalayam, Cuddalore, we believe every celebration deserves extraordinary food and seamless hospitality. FSSAI Registered: <strong>24419407000193</strong>.</p><p>அனைத்து விதமான சுப நிகழ்ச்சிகளுக்கும் முதல் தரமான சைவ மற்றும் அசைவ உணவு வகைகள் தங்களின் விருப்பத்திற்கேற்ப குறித்த நேரத்தில் மிகச் சிறப்பாக செய்து தரப்படும். From intimate family gatherings to grand weddings, we ensure your guests enjoy every moment.</p><p class=\"about-studio__signature\">Taste That Creates Memories &bull; பந்தல் முதல் பந்தி வரை</p>"]
                         ];
                         const stmt = db.prepare("INSERT INTO SiteContent (key, value) VALUES (?, ?)");
                         defaultContent.forEach(item => stmt.run(item));

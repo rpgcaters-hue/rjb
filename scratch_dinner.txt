@@ -1,0 +1,106 @@
+RPG Catering Page 1
+RPG CATERING
+Consolidated 8 Dinner Menus
+Menu items reproduced from the supplied Excel file, preserving the original categories and dish names.
+Menu Items
+Category Dish Name
+Sweets Rasmalai
+Sweets Makkan Peda
+Sweets Dry Fruit Kothiri Burfi
+Sweets Malai Sandwich
+Sweets Arcot Makkan Peda
+Sweets Kesar Kaju Katli
+Sweets Shahi Tukda
+Sweets Angoori Basundi
+Sweets Dry Fruit Gothumai Halwa
+Sweets Gothumai Halwa
+Sweets Mini Jangiri
+Sweets Badam Barfi
+Sweets Mini Paruppu Poli
+Sweets Mysore Pak
+Sweets Cashew Pista Roll
+Sweets Srisailam
+Sweets Elaneer Payasam
+Sweets Ada Pradhaman
+Sweets Arasi Payasam
+Snacks & Starters Paneer Tikka
+Snacks & Starters Gobi - 65
+Snacks & Starters Veg Hara Bara Kabab
+Snacks & Starters Mushroom Manchurian
+Snacks & Starters Shanghai Green Spring Roll
+Snacks & Starters Veg Green Corn Roll
+Snacks & Starters Cashew Pakoda
+Snacks & Starters Veg Seekh Kabab
+Snacks & Starters Honey Dry Ball Manchurian
+Snacks & Starters Veg Money Bag
+Snacks & Starters Onion Pakoda
+
+-- 1 of 3 --
+
+RPG Catering Page 2
+Category Dish Name
+Snacks & Starters Veg Ball Manchurian
+Snacks & Starters Veg Manchurian Gravy
+Snacks & Starters Schezwan Noodles
+Snacks & Starters Potato Orange Fry
+Snacks & Starters Potato Chips
+Snacks & Starters Raw Banana Chips
+Main Course - Breads & Gravies Poricha Parotta
+Main Course - Breads & Gravies Ceylon Parotta
+Main Course - Breads & Gravies Coin Parotta
+Main Course - Breads & Gravies Chilli Parotta
+Main Course - Breads & Gravies Idiyappam
+Main Course - Breads & Gravies Veg Paya
+Main Course - Breads & Gravies Rumali Roti
+Main Course - Breads & Gravies Paneer Butter Masala
+Main Course - Breads & Gravies Cashew Pepper Masala
+Main Course - Breads & Gravies Mushroom Pepper Masala
+Main Course - Breads & Gravies Veg Mutton Gravy
+Main Course - Breads & Gravies Veg Kurma
+Main Course - Breads & Gravies Dhokla Idli
+Main Course - Breads & Gravies Podi Idli
+Main Course - Breads & Gravies Chapathi
+Main Course - Breads & Gravies Puttu
+Main Course - Breads & Gravies Kadala Curry
+Main Course - Rice & South Indian Jackfruit Biryani (Palakkai Biryani)
+Main Course - Rice & South Indian Veg Biryani
+Main Course - Rice & South Indian Ghee Rice
+Main Course - Rice & South Indian Karnataka Bisi Bele Bath
+Main Course - Rice & South Indian Ghee Cashew Bisi Bele Bath
+Main Course - Rice & South Indian Steamed Rice
+Main Course - Rice & South Indian Sambar (Kadamba Sambar)
+Main Course - Rice & South Indian Rasam (Mixed / Navaratna)
+Main Course - Rice & South Indian Vatha Kuzhambu
+Main Course - Rice & South Indian Navaratna Uthappam
+Main Course - Rice & South Indian Podi Uthappam
+Main Course - Rice & South Indian Pizza Uthappam
+Main Course - Rice & South Indian Fruit Bagala Bath
+Main Course - Rice & South Indian Thick Curd
+
+-- 2 of 3 --
+
+RPG Catering Page 3
+Category Dish Name
+Sides & Chutneys Panchaloga Poriyal
+Sides & Chutneys Coconut Almond Chutney
+Sides & Chutneys Kara Chutney
+Sides & Chutneys Tomato Kara Chutney
+Sides & Chutneys Mint Coriander Chutney
+Sides & Chutneys Curd Pachadi (Onion Raita)
+Sides & Chutneys Mango Thokku
+Sides & Chutneys Mor Milagai
+Sides & Chutneys Vadam (Color Vadam)
+Sides & Chutneys Appalam
+Sides & Chutneys Pickle
+Sides & Chutneys Tomato Sauce
+Desserts & Beverages 3 Flavor Ice Cream with Toppings
+Desserts & Beverages Apricot Ice Cream
+Desserts & Beverages Cassata Ice Cream
+Desserts & Beverages Fruit Salad / Cut Fruits
+Desserts & Beverages Watermelon Juice
+Desserts & Beverages Grape Juice
+Desserts & Beverages Calcutta Beeda
+Desserts & Beverages Water Bottle
+
+-- 3 of 3 --
+

@@ -28,9 +28,46 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Setup Multer for Image Uploads (Memory Storage for Supabase)
-const storage = multer.memoryStorage();
+// Setup Multer for Image Uploads (Stored locally in public/uploads)
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadsDir);
+    },
+    filename: (req, file, cb) => {
+        const fileExt = path.extname(file.originalname);
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`;
+        cb(null, fileName);
+    }
+});
 const upload = multer({ storage: storage });
+
+// Local Gallery Data Store (Fast & reliable)
+const GALLERY_FILE = path.join(__dirname, 'public', 'gallery-data.json');
+
+function getGallery() {
+    try {
+        if (fs.existsSync(GALLERY_FILE)) {
+            const data = JSON.parse(fs.readFileSync(GALLERY_FILE, 'utf8'));
+            return Array.isArray(data) ? data : [];
+        }
+    } catch (e) {
+        console.error("Error reading gallery-data.json:", e);
+    }
+    return [];
+}
+
+function saveGallery(items) {
+    try {
+        fs.writeFileSync(GALLERY_FILE, JSON.stringify(items, null, 2), 'utf8');
+    } catch (e) {
+        console.error("Error saving gallery-data.json:", e);
+    }
+}
 
 // Admin Authentication Middleware
 const requireAuth = (req, res, next) => {
@@ -43,30 +80,40 @@ const requireAuth = (req, res, next) => {
 
 // Static content for landing page
 const staticContent = {
-    hero_tagline: "RPG Catering is Cuddalore's trusted event planner,<br>delivering premium wedding catering services —<br>crafting unforgettable memories since 2005.",
-    about_title: "RPG CATERING & STUDIO",
-    about_text: "<p>At <strong>RPG Catering</strong> in Manjakkuppam, Cuddalore, we believe every celebration deserves extraordinary food and seamless hospitality. We create unforgettable dining experiences tailored to your vision.</p><p>Our team delivers freshly prepared cuisine and flawless event execution. From intimate family gatherings to grand weddings, we ensure your guests enjoy every moment.</p><p class=\"about-studio__signature\">Your Celebration. Our Passion.</p>"
+    hero_tagline: "<span class=\"tagline-line\">RPG Catering is Cuddalore's trusted event planner,</span><span class=\"tagline-line\">delivering premium wedding catering &amp; event services —</span><span class=\"tagline-line\">crafting unforgettable memories since 2006.</span>",
+    about_title: "RPG CATERING AND EVENT MANAGEMENT",
+    about_text: "<p>At <strong>RPG Catering and Event Management</strong> (RPG சமையல் கேட்டரிங் சர்வீஸ்) in Vannarapalayam, Cuddalore, we believe every celebration deserves extraordinary food and seamless hospitality. FSSAI Registered: <strong>24419407000193</strong>.</p><p>அனைத்து விதமான சுப நிகழ்ச்சிகளுக்கும் முதல் தரமான சைவ மற்றும் அசைவ உணவு வகைகள் தங்களின் விருப்பத்திற்கேற்ப குறித்த நேரத்தில் மிகச் சிறப்பாக செய்து தரப்படும். From intimate family gatherings to grand weddings, we ensure your guests enjoy every moment.</p><p class=\"about-studio__signature\">Taste That Creates Memories &bull; பந்தல் முதல் பந்தி வரை</p>"
 };
 
 const staticServices = [
-    { id: 1, title: "Wedding Catering", image_url: "wedding_catering.png" },
-    { id: 2, title: "🎂 Birthday Party Catering", image_url: "event_catering.png" },
-    { id: 3, title: "❤️ Anniversary Catering", image_url: "hero.png" },
-    { id: 4, title: "🎉 Event Catering", image_url: "decor.png" },
-    { id: 5, title: "🍽 Buffet & Live Counters", image_url: "buffet_catering.png" },
-    { id: 6, title: "👨‍🍳 Professional Service Staff", image_url: "service_staff.png" }
+    { id: 1, title: "Wedding Catering (சுப முகூர்த்த விருந்து)", image_url: "wedding_catering.png" },
+    { id: 2, title: "Birthday Party Catering", image_url: "event_catering.png" },
+    { id: 3, title: "Anniversary Celebrations", image_url: "hero.png" },
+    { id: 4, title: "Special Occasions & Family Events", image_url: "decor.png" },
+    { id: 5, title: "Buffet & Live Counters (Maska Bun Stall)", image_url: "buffet_catering.png" },
+    { id: 6, title: "Professional Service Staff & Hospitality", image_url: "service_staff.png" }
+];
+
+const additionalServices = [
+    { id: 1, title: "DJ & Sound Setup", image_url: "as_dj_sound.jpg" },
+    { id: 2, title: "Stage & Mandap Decor", image_url: "as_mandap_decor.jpg" },
+    { id: 3, title: "Lighting & Ambience", image_url: "as_lighting_ambience.jpg" },
+    { id: 4, title: "Photography & Videography", image_url: "as_photography_video.jpg" },
+    { id: 5, title: "Corporate Events & Exhibitions", image_url: "as_corporate_events.jpg" },
+    { id: 6, title: "Cultural Programs & Orchestra", image_url: "as_cultural_orchestra.jpg" },
+    { id: 7, title: "Live Streaming & Webcasting", image_url: "as_live_streaming.jpg" },
+    { id: 8, title: "Live Refreshment Stalls", image_url: "as_refreshment_stalls.jpg" }
 ];
 
 // --- PUBLIC ROUTES ---
-app.get('/', async (req, res) => {
-    // Fetch gallery from Supabase
-    const { data: gallery, error } = await supabase.from('Gallery').select('*').order('created_at', { ascending: false });
-    res.render('index', { content: staticContent, services: staticServices, gallery: gallery || [] });
+app.get('/', (req, res) => {
+    const gallery = getGallery();
+    res.render('index', { content: staticContent, services: staticServices, additionalServices: additionalServices, gallery });
 });
 
-app.get('/gallery', async (req, res) => {
-    const { data: gallery, error } = await supabase.from('Gallery').select('*').order('created_at', { ascending: false });
-    res.render('gallery', { gallery: gallery || [] });
+app.get('/gallery', (req, res) => {
+    const gallery = getGallery();
+    res.render('gallery', { gallery });
 });
 
 app.get('/food', (req, res) => {
@@ -74,12 +121,28 @@ app.get('/food', (req, res) => {
 });
 
 app.get('/food-items', (req, res) => {
-    res.render('food-items');
+    try {
+        const menuData = JSON.parse(fs.readFileSync(path.join(__dirname, 'public', 'menu-data.json'), 'utf8'));
+        res.render('food-items', { categories: menuData.categories || [] });
+    } catch (e) {
+        console.error("Error reading menu-data.json:", e);
+        res.render('food-items', { categories: [] });
+    }
 });
 
 app.get('/download-marriage-food', (req, res) => {
     const filePath = path.join(__dirname, 'public', 'marriage-food.pdf');
     res.download(filePath, 'RPG-Catering-Marriage-Food-Menu.pdf');
+});
+
+app.get('/download-master-menu', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'RPG-Catering-Master-Menu-Catalog.pdf');
+    res.download(filePath, 'RPG-Catering-Master-Menu-Catalog.pdf');
+});
+
+app.get('/download-dinner-special', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'RPG-Special-Dinner-Menu-Collection.pdf');
+    res.download(filePath, 'RPG-Special-Dinner-Menu-Collection.pdf');
 });
 
 app.get('/download-dinner-menus', (req, res) => {
@@ -105,11 +168,11 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    // Hardcoded simple auth for MVP (Admin / admin123)
-    // We use bcrypt for demonstration: bcrypt.hashSync('admin123', 10) = $2b$10$wTf2t22.gR67Y4B2O/k51ueFzFOfw26aEpsM/W3O/H10nJq4L11x2
-    const adminHash = '$2b$10$CES6chtSrIRDXjLxOG5VGuOBUg5R.9YDyNMZENc/B6KE8McVjwSZW';
+    // Simple auth for Admin panel
+    const validUsername = username && username.trim().toLowerCase() === 'admin';
+    const validPassword = password === 'admin123' || (password && await bcrypt.compare(password, '$2b$10$m1qdpKSHBjRYiqCWu.bjAelGYxAzJqGRhv29pTDW7JpIRycX1quh.'));
     
-    if (username === 'Admin' && await bcrypt.compare(password, adminHash)) {
+    if (validUsername && validPassword) {
         req.session.loggedIn = true;
         res.redirect('/admin');
     } else {
@@ -122,61 +185,50 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-app.get('/admin', requireAuth, async (req, res) => {
-    const { data: gallery, error } = await supabase.from('Gallery').select('*').order('created_at', { ascending: false });
-    res.render('admin', { gallery: gallery || [] });
+app.get('/admin', requireAuth, (req, res) => {
+    const gallery = getGallery();
+    res.render('admin', { gallery });
 });
 
-// Admin: Add Gallery Images (Upload to Supabase Storage)
-app.post('/admin/gallery', requireAuth, upload.array('images', 20), async (req, res) => {
+// Admin: Add Gallery Images (Upload to Local Storage & Update Gallery JSON)
+app.post('/admin/gallery', requireAuth, upload.array('images', 20), (req, res) => {
     if (!req.files || req.files.length === 0) return res.redirect('/admin');
     
     const category = req.body.category || 'Uncategorized';
+    const gallery = getGallery();
     
     for (const file of req.files) {
-        const fileExt = path.extname(file.originalname);
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}${fileExt}`;
-        
-        // Upload to Supabase Storage
-        const { data: uploadData, error: uploadError } = await supabase.storage
-            .from('bossevent')
-            .upload(fileName, file.buffer, {
-                contentType: file.mimetype,
-                upsert: false
-            });
-            
-        if (uploadError) {
-            console.error("Storage upload error:", uploadError);
-            return res.redirect('/admin?error=Upload_Failed_Please_Check_Bucket');
-        }
-        
-        // Get public URL
-        const { data: publicUrlData } = supabase.storage.from('bossevent').getPublicUrl(fileName);
-        const imageUrl = publicUrlData.publicUrl;
-        
-        // Insert into Supabase DB
-        await supabase.from('Gallery').insert([{ image_url: imageUrl, category: category }]);
+        const imageUrl = '/uploads/' + file.filename;
+        const newEntry = {
+            id: `${Date.now()}_${Math.random().toString(36).substring(7)}`,
+            image_url: imageUrl,
+            category: category,
+            created_at: new Date().toISOString()
+        };
+        gallery.unshift(newEntry);
     }
     
+    saveGallery(gallery);
     res.redirect('/admin?success=1');
 });
 
 // Admin: Delete Gallery Image
-app.post('/admin/gallery/delete/:id', requireAuth, async (req, res) => {
-    // 1. Get the image URL from DB to extract the filename
-    const { data: galleryItem } = await supabase.from('Gallery').select('image_url').eq('id', req.params.id).single();
+app.post('/admin/gallery/delete/:id', requireAuth, (req, res) => {
+    const gallery = getGallery();
+    const itemIndex = gallery.findIndex(item => String(item.id) === String(req.params.id));
     
-    if (galleryItem) {
-        // Extract filename from URL
-        const parts = galleryItem.image_url.split('/');
-        const fileName = parts[parts.length - 1];
-        
-        // 2. Delete from Storage
-        await supabase.storage.from('bossevent').remove([fileName]);
+    if (itemIndex !== -1) {
+        const item = gallery[itemIndex];
+        // If image is inside /uploads/, remove it from disk
+        if (item.image_url && item.image_url.startsWith('/uploads/')) {
+            const localPath = path.join(__dirname, 'public', item.image_url);
+            if (fs.existsSync(localPath)) {
+                try { fs.unlinkSync(localPath); } catch (e) {}
+            }
+        }
+        gallery.splice(itemIndex, 1);
+        saveGallery(gallery);
     }
-    
-    // 3. Delete from DB
-    await supabase.from('Gallery').delete().eq('id', req.params.id);
     
     res.redirect('/admin');
 });

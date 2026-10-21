@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "image_url": "/service_wedding.jpg",
+    "category": "Wedding Planning & Decor",
+    "created_at": "2026-10-20T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "image_url": "/as_mandap_decor.jpg",
+    "category": "Wedding Planning & Decor",
+    "created_at": "2026-10-20T10:01:00Z"
+  },
+  {
+    "id": "3",
+    "image_url": "/service_engagement.jpg",
+    "category": "Wedding Planning & Decor",
+    "created_at": "2026-10-20T10:02:00Z"
+  },
+  {
+    "id": "4",
+    "image_url": "/as_lighting_ambience.jpg",
+    "category": "Thematic Setup & Design",
+    "created_at": "2026-10-20T10:03:00Z"
+  },
+  {
+    "id": "5",
+    "image_url": "/service_birthday.jpg",
+    "category": "Birthday Party Decoration",
+    "created_at": "2026-10-20T10:04:00Z"
+  },
+  {
+    "id": "6",
+    "image_url": "/as_photography_video.jpg",
+    "category": "Comprehensive Event Planning",
+    "created_at": "2026-10-20T10:05:00Z"
+  },
+  {
+    "id": "7",
+    "image_url": "/service_live_counter.jpg",
+    "category": "Comprehensive Event Planning",
+    "created_at": "2026-10-20T10:06:00Z"
+  },
+  {
+    "id": "8",
+    "image_url": "/as_corporate_events.jpg",
+    "category": "Professional Event Organisers",
+    "created_at": "2026-10-20T10:07:00Z"
+  },
+  {
+    "id": "9",
+    "image_url": "/buffet_catering.png",
+    "category": "Anniversary & Private Gatherings",
+    "created_at": "2026-10-20T10:08:00Z"
+  }
+]

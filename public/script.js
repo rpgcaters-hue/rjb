@@ -126,21 +126,25 @@ window.addEventListener('scroll', () => {
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 
-hamburgerBtn.addEventListener('click', () => {
-  const isOpen = hamburgerBtn.classList.toggle('open');
-  mobileMenu.classList.toggle('open', isOpen);
-  hamburgerBtn.setAttribute('aria-expanded', isOpen);
-  mobileMenu.setAttribute('aria-hidden', !isOpen);
-});
-
-mobileMenu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburgerBtn.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    mobileMenu.setAttribute('aria-hidden', 'true');
+if (hamburgerBtn && mobileMenu) {
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = hamburgerBtn.classList.toggle('open');
+    hamburgerBtn.classList.toggle('active', isOpen);
+    mobileMenu.classList.toggle('open', isOpen);
+    mobileMenu.classList.toggle('active', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    mobileMenu.setAttribute('aria-hidden', !isOpen);
   });
-});
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('open', 'active');
+      mobileMenu.classList.remove('open', 'active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+}
 
 /* --- Hero Image Ken-Burns Effect --- */
 const heroImg = document.querySelector('.hero-img');
@@ -331,7 +335,7 @@ I would like to inquire about your event planning and catering services. Here ar
 ${message || 'None specified'}`;
 
   // WhatsApp link using the provided number
-  const waUrl = `https://wa.me/919600662794?text=${encodeURIComponent(waMsg)}`;
+  const waUrl = `https://wa.me/917502134519?text=${encodeURIComponent(waMsg)}`;
 
   submitBtn.textContent = 'Opening WhatsApp...';
   submitBtn.style.background = '#4a7c59';
