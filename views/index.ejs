@@ -248,8 +248,17 @@
     
     <!-- Scrolling Images Container -->
     <div class="ss-scroll-container">
-      
-      <% services.forEach((service, index) => { %>
+      <% 
+        const servicesList = [
+          { id: 1, title: "Wedding Catering (சுப முகூர்த்த விருந்து)", image_url: "wedding_catering.png" },
+          { id: 2, title: "Birthday Party Catering", image_url: "birthday_celebration.jpg" },
+          { id: 3, title: "Anniversary Celebrations", image_url: "anniversary_celebrations.jpg" },
+          { id: 4, title: "Special Occasions & Family Events", image_url: "family_events.jpg" },
+          { id: 5, title: "Buffet & Live Counters (Maska Bun Stall)", image_url: "muska_bun_stall.jpg" },
+          { id: 6, title: "Professional Service Staff & Hospitality", image_url: "professional_service_staff_hospitality.jpg" }
+        ];
+      %>
+      <% servicesList.forEach((service, index) => { %>
         <% if (index % 2 === 0) { %>
           <div class="ss-img ss-img--left reveal" <%- index > 1 ? 'style="margin-top: 20vh;"' : '' %>>
             <img src="<%= service.image_url %>" alt="<%= service.title %>" loading="lazy" />
@@ -321,15 +330,15 @@
     <!-- Horizontal scrolling track -->
     <div class="work-showcase__scroll" id="workScroll">
       <div class="work-showcase__track">
-        <div class="ws-item"><img src="hero.png" alt="Wedding setup" loading="lazy"></div>
-        <div class="ws-item"><img src="decor.png" alt="Event decor" loading="lazy"></div>
-        <div class="ws-item"><img src="catering.png" alt="Catering" loading="lazy"></div>
-        <div class="ws-item"><img src="hero.png" alt="Celebration" loading="lazy"></div>
+        <div class="ws-item"><img src="wedding_catering.png" alt="Wedding setup" loading="lazy"></div>
+        <div class="ws-item"><img src="anniversary_celebrations.jpg" alt="Anniversary celebration" loading="lazy"></div>
+        <div class="ws-item"><img src="birthday_celebration.jpg" alt="Birthday Party" loading="lazy"></div>
+        <div class="ws-item"><img src="family_events.jpg" alt="Family Events" loading="lazy"></div>
         <!-- Duplicated for infinite scroll -->
-        <div class="ws-item"><img src="hero.png" alt="Wedding setup" loading="lazy"></div>
-        <div class="ws-item"><img src="decor.png" alt="Event decor" loading="lazy"></div>
+        <div class="ws-item"><img src="muska_bun_stall.jpg" alt="Live Stall" loading="lazy"></div>
+        <div class="ws-item"><img src="professional_service_staff_hospitality.jpg" alt="Hospitality Staff" loading="lazy"></div>
+        <div class="ws-item"><img src="as_mandap_decor.jpg" alt="Stage Decor" loading="lazy"></div>
         <div class="ws-item"><img src="catering.png" alt="Catering" loading="lazy"></div>
-        <div class="ws-item"><img src="hero.png" alt="Celebration" loading="lazy"></div>
       </div>
     </div>
 
@@ -356,7 +365,7 @@
       <div class="work-showcase__track">
         <div class="ws-item"><img src="catering.png" alt="Traditional South Indian Feast" loading="lazy"></div>
         <div class="ws-item"><img src="wedding_catering.png" alt="Royal Wedding Feast Catering" loading="lazy"></div>
-        <div class="ws-item"><img src="buffet_catering.png" alt="Grand Event Buffet Setup" loading="lazy"></div>
+        <div class="ws-item"><img src="muska_bun_stall.jpg" alt="Signature Maska Bun Live Stall" loading="lazy"></div>
         <div class="ws-item"><img src="service_live_counter.jpg" alt="Live Food Counters and Stalls" loading="lazy"></div>
         <div class="ws-item"><img src="/menu-assets/maska_bun_live.jpg" alt="Signature Maska Bun Live Stall" loading="lazy"></div>
       </div>

@@ -40,11 +40,11 @@ const db = new sqlite3.Database(path.join(__dirname, 'database.sqlite'), (err) =
                     if (row && row.count === 0) {
                         const defaultServices = [
                             ["Wedding Catering", "wedding_catering.png"],
-                            ["🎂 Birthday Party Catering", "event_catering.png"],
-                            ["❤️ Anniversary Catering", "hero.png"],
-                            ["🎉 Event Catering", "decor.png"],
-                            ["🍽 Buffet & Live Counters", "buffet_catering.png"],
-                            ["👨‍🍳 Professional Service Staff", "service_staff.png"]
+                            ["🎂 Birthday Party Catering", "birthday_celebration.jpg"],
+                            ["❤️ Anniversary Catering", "anniversary_celebrations.jpg"],
+                            ["🎉 Special Occasions & Family Events", "family_events.jpg"],
+                            ["🍽 Buffet & Live Counters (Maska Bun Stall)", "muska_bun_stall.jpg"],
+                            ["👨‍🍳 Professional Service Staff & Hospitality", "professional_service_staff_hospitality.jpg"]
                         ];
                         const stmt = db.prepare("INSERT INTO Services (title, image_url) VALUES (?, ?)");
                         defaultServices.forEach(item => stmt.run(item));

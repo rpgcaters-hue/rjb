@@ -2332,15 +2332,26 @@ a { text-decoration: none; color: inherit; }
 }
 
 .ss-img {
-  width: 26%;
-  max-width: 320px;
+  width: 25%;
+  max-width: 300px;
   position: relative;
+  box-sizing: border-box;
 }
 
 .ss-img img {
   width: 100%;
-  border-radius: 8px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
   display: block;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.ss-img:hover img {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
 }
 
 .ss-img--left {
@@ -2358,10 +2369,14 @@ a { text-decoration: none; color: inherit; }
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #444;
+  color: #333;
   text-align: center;
   margin-top: 0.8rem;
   letter-spacing: 0.02em;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Scroll Reveal Animations for images */
@@ -2422,9 +2437,18 @@ a { text-decoration: none; color: inherit; }
   }
 
   .ss-img {
-    width: 42%;
+    width: 44%;
     max-width: 180px;
     position: relative;
+  }
+
+  .ss-img img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
   }
 
   .ss-img--left {
@@ -2439,15 +2463,16 @@ a { text-decoration: none; color: inherit; }
     margin-top: -1.5rem !important;
   }
   .ss-caption {
-    font-size: 0.75rem;
-    padding: 0.5rem 0;
+    font-size: 0.78rem;
+    padding: 0.4rem 0 0;
+    min-height: 2em;
   }
 
   /* Connector Lines */
   .ss-img::before {
     content: '';
     position: absolute;
-    top: 35%; 
+    top: 40%; 
     width: 6vw; /* Spans the gap to the center */
     height: 1px;
     background-color: rgba(182, 141, 93, 0.6);
@@ -2458,7 +2483,7 @@ a { text-decoration: none; color: inherit; }
   .ss-img::after {
     content: '';
     position: absolute;
-    top: 35%;
+    top: 40%;
     width: 8px;
     height: 8px;
     background-color: #b68d5d;

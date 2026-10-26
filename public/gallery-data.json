@@ -25,7 +25,7 @@
   },
   {
     "id": "5",
-    "image_url": "/service_birthday.jpg",
+    "image_url": "/birthday_celebration.jpg",
     "category": "Birthday Party Decoration",
     "created_at": "2026-10-20T10:04:00Z"
   },
@@ -37,20 +37,26 @@
   },
   {
     "id": "7",
-    "image_url": "/service_live_counter.jpg",
+    "image_url": "/muska_bun_stall.jpg",
     "category": "Comprehensive Event Planning",
     "created_at": "2026-10-20T10:06:00Z"
   },
   {
     "id": "8",
-    "image_url": "/as_corporate_events.jpg",
+    "image_url": "/professional_service_staff_hospitality.jpg",
     "category": "Professional Event Organisers",
     "created_at": "2026-10-20T10:07:00Z"
   },
   {
     "id": "9",
-    "image_url": "/buffet_catering.png",
+    "image_url": "/anniversary_celebrations.jpg",
     "category": "Anniversary & Private Gatherings",
     "created_at": "2026-10-20T10:08:00Z"
+  },
+  {
+    "id": "10",
+    "image_url": "/family_events.jpg",
+    "category": "Anniversary & Private Gatherings",
+    "created_at": "2026-10-20T10:09:00Z"
   }
 ]

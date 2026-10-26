@@ -115,11 +115,11 @@ const staticContent = {
 
 const staticServices = [
     { id: 1, title: "Wedding Catering (சுப முகூர்த்த விருந்து)", image_url: "wedding_catering.png" },
-    { id: 2, title: "Birthday Party Catering", image_url: "event_catering.png" },
-    { id: 3, title: "Anniversary Celebrations", image_url: "hero.png" },
-    { id: 4, title: "Special Occasions & Family Events", image_url: "decor.png" },
-    { id: 5, title: "Buffet & Live Counters (Maska Bun Stall)", image_url: "buffet_catering.png" },
-    { id: 6, title: "Professional Service Staff & Hospitality", image_url: "service_staff.png" }
+    { id: 2, title: "Birthday Party Catering", image_url: "birthday_celebration.jpg" },
+    { id: 3, title: "Anniversary Celebrations", image_url: "anniversary_celebrations.jpg" },
+    { id: 4, title: "Special Occasions & Family Events", image_url: "family_events.jpg" },
+    { id: 5, title: "Buffet & Live Counters (Maska Bun Stall)", image_url: "muska_bun_stall.jpg" },
+    { id: 6, title: "Professional Service Staff & Hospitality", image_url: "professional_service_staff_hospitality.jpg" }
 ];
 
 const additionalServices = [
